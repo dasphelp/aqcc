@@ -1,1 +1,5 @@
+project: aqcc
+target: cc
 
+cmds:
+  - cmd: /aqcc/cc/cc @@ /dev/null
