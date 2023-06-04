@@ -51,14 +51,14 @@ jobs:
       - name: Start analysis for as
         uses: ForAllSecure/mcode-action@v1
         with:
-          mayhem-token: ${{ secrets.MAYHEM_TOKEN }} --file ${{ env.AS_MAYHEMFILE }}
-          args: --image ${{ steps.meta.outputs.tags }}
+          mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
+          args: --image ${{ steps.meta.outputs.tags }} --file ${{ env.AS_MAYHEMFILE }}
           sarif-output: sarif
       - name: Start analysis for cc
         uses: ForAllSecure/mcode-action@v1
         with:
-          mayhem-token: ${{ secrets.MAYHEM_TOKEN }} --file ${{ env.CC_MAYHEMFILE }}
-          args: --image ${{ steps.meta.outputs.tags }}
+          mayhem-token: ${{ secrets.MAYHEM_TOKEN }} 
+          args: --image ${{ steps.meta.outputs.tags }} --file ${{ env.CC_MAYHEMFILE }}
           sarif-output: sarif
 
       - name: Upload SARIF file(s)
