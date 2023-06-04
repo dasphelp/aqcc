@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  AS_MAYHEMFILE: as.mayhemfile
+  CC_MAYHEMFILE: cc.mayhemfile
 
 jobs:
   build:
@@ -46,10 +48,16 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Start analysis
+      - name: Start analysis for as
         uses: ForAllSecure/mcode-action@v1
         with:
-          mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
+          mayhem-token: ${{ secrets.MAYHEM_TOKEN }} --file ${{ env.AS_MAYHEMFILE }}
+          args: --image ${{ steps.meta.outputs.tags }}
+          sarif-output: sarif
+      - name: Start analysis for cc
+        uses: ForAllSecure/mcode-action@v1
+        with:
+          mayhem-token: ${{ secrets.MAYHEM_TOKEN }} --file ${{ env.CC_MAYHEMFILE }}
           args: --image ${{ steps.meta.outputs.tags }}
           sarif-output: sarif
 
